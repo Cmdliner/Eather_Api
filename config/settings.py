@@ -2,8 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
-    TITLE: str = "Eather"
-    PROJECT_NAME: str
+    PROJECT_NAME: str = "Eather"
     DATABASE_URI: str
     ACCESS_TOKEN_SECRET: str
     ACCESS_TOKEN_EXPIRE_MINUTES: str
