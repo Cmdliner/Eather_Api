@@ -1,6 +1,6 @@
 import uuid
 from config.db import Base
-from sqlalchemy import Column, String, ForeignKey, Float
+from sqlalchemy import Column, Boolean, ForeignKey, Float
 from sqlalchemy.orm import relationship
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -13,6 +13,6 @@ class Payment(Base):
         UUID(as_uuid=True), ForeignKey("appointments.id"), nullable=False
     )
     amount = Column(Float, nullable=False)
-    status = Column(String, default="unpaid")  # Paid, Unpaid, Pending
+    status = Column(Boolean, default=False)
 
     relationship("Appointment", back_populates="payment")
