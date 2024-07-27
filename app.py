@@ -1,8 +1,9 @@
 import os
+from api import auth
+from config.settings import settings
+from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
-from dotenv import load_dotenv
-from api import auth
 
 load_dotenv()
 
@@ -10,7 +11,7 @@ CORS_ORIGIN = os.getenv('CORS_ORIGIN')
 ACCESS_TOKEN_SECRET = os.getenv('ACCESS_TOKEN_SECRET')
 REFRESH_TOKEN_SECRET = os.getenv('REFRESH_TOKEN_SECRET')
 
-app = FastAPI()
+app = FastAPI(title=settings.TITLE)
 
 app.add_middleware(
     CORSMiddleware,

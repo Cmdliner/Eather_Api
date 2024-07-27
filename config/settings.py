@@ -2,6 +2,7 @@ from pydantic_settings import BaseSettings
 
 
 class Settings(BaseSettings):
+    TITLE: str = "Eather"
     PROJECT_NAME: str
     DATABASE_URI: str
     ACCESS_TOKEN_SECRET: str
@@ -11,5 +12,6 @@ class Settings(BaseSettings):
 
     class Config:
         env_file = ".env"
+
 
 settings = Settings()
