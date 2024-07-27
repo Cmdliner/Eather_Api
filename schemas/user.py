@@ -10,12 +10,28 @@ class BaseUser(BaseModel):
     email: EmailStr
     is_superuser: bool = Field(default=False)
 
-class UserIn(BaseUser):
+
+class UserCreate(BaseModel):
     password: str = Field(min_length=6)
 
 
-class UserInDB(BaseUser):
-    password: str
+class UserUpdate(BaseUser):
+    password: str = Field(min_length=6)
+
+
+class UserInDbBase(BaseUser):
+    id: str | None = None
+
+    class Config:
+        orm_mode = True
+
+
+class UserInDB(UserInDbBase):
+    hashed_password: str
+
+
+class User(UserInDB):
+    pass
 
 
 class Token(BaseModel):
