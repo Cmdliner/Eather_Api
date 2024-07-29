@@ -20,3 +20,13 @@ def signup(user: UserCreate, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(new_user)
     return new_user.email
+
+
+@router.post('/user_id')
+def get_id(user: UserCreate, db: Session = Depends(get_db)):
+    user_id = db.query(User).filter(User.email == user.email).first()
+
+    if user_id:
+        return user_id.id
+
+    return 'No such user'    
