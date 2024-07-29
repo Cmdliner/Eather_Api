@@ -6,7 +6,7 @@ Backend API for the Eather platform
 - Python
 - FastAPI
 - Passlib
-- Postgresql
+- Maria DB / MySql
 - Docker
 
 ## How to use
@@ -35,7 +35,7 @@ pip install -r requirements.txt
 ### Create a .env file at the project root and initalize the following constants
 ```sh
 PROJECT_NAME=Eather
-DATABASE_URI=postgresql://<db_user>:<user_password>:5432/<db_name>
+DATABASE_URI=mysql+pymysql://<db_user>:<user_password>/<db_name>
 ACCESS_TOKEN_SECRET=<your_access_secret>
 REFRESH_TOKEN_SECRET=<your_refresh_secret>
 ACCESS_TOKEN_EXPIRE_MINUTES=
@@ -43,7 +43,7 @@ ACCESS_TOKEN_EXPIRE_MINUTES=
 
 ### Run the Development Server
 ```sh
-fastapi run app.py
+fastapi dev app.py
 ```
 ## PROJECT STRUCURE
 ```sh

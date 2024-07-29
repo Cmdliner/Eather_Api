@@ -1,4 +1,4 @@
-import uuid
+""" import uuid
 from config.db import Base
 from sqlalchemy import Column, ForeignKey, String, Text, Table
 from sqlalchemy.orm import relationship
@@ -25,5 +25,6 @@ class Appointment(Base):
     user = relationship("User", back_populates="appointments")
     recommended_tests = relationship(
         "Test", secondary=appointment_tests, back_populates="appointment"
-    )
+    )                                                               
     payment = relationship("Payment", back_populates="appointments", uselist=False)
+ """

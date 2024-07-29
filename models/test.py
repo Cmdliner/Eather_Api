@@ -1,6 +1,7 @@
-from config.db import Base
+""" from config.db import Base
 from sqlalchemy import Column, String, Float
 from sqlalchemy.dialects.postgresql import UUID
+from sqlalchemy.orm import relationship
 
 
 class Test(Base):
@@ -10,3 +11,8 @@ class Test(Base):
     name = Column(String, unique=True, index=True, nullable=False)
     price = Column(Float, nullable=False)
     description = Column(String(255))
+
+    appointments = relationship(
+        "Appointment", secondary="appointment_tests", back_populates="recommended_tests"
+    )
+ """

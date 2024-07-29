@@ -1,4 +1,4 @@
-import uuid
+""" import uuid
 from config.db import Base
 from sqlalchemy import Column, Boolean, ForeignKey, Float
 from sqlalchemy.orm import relationship
@@ -16,3 +16,4 @@ class Payment(Base):
     status = Column(Boolean, default=False)
 
     relationship("Appointment", back_populates="payment")
+ """

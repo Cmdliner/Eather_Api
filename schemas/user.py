@@ -6,12 +6,12 @@ username_pattern = re.compile(r"[a-z]")
 
 
 class BaseUser(BaseModel):
-    username: str = Field(min_length=3, pattern=username_pattern)
+    # username: str = Field(min_length=3, pattern=username_pattern)
     email: EmailStr
     is_superuser: bool = Field(default=False)
 
 
-class UserCreate(BaseModel):
+class UserCreate(BaseUser):
     password: str = Field(min_length=6)
 
 
