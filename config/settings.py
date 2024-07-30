@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     ACCESS_TOKEN_SECRET: str
     ACCESS_TOKEN_EXPIRE_MINUTES: str
     REFRESH_TOKEN_SECRET: str
+    REFRESH_TOKEN_EXPIRE_DAYS: str
     ALGORITHM: str = "HS256"
 
     class Config:

@@ -1,3 +1,4 @@
+import uuid, random
 from config.settings import settings
 from datetime import datetime, UTC, timedelta
 from passlib.context import CryptContext
@@ -16,13 +17,28 @@ def create_access_token(subject: str, expires_delta: timedelta | None = None) ->
         expire = datetime.now(UTC) + expires_delta
     else:
         expire = datetime.now(UTC) + timedelta(
-            minutes=settings.ACCESS_TOKEN_EXPIRE_MINUTES
+            minutes=int(settings.ACCESS_TOKEN_EXPIRE_MINUTES)
         )
 
-        to_encode = {"exp": expire, "sub": str(subject)}
-        encoded_jwt = jwt.encode(
-            to_encode, settings.ACCESS_TOKEN_SECRET, algorithm=settings.ALGORITHM
+    to_encode = {"exp": expire, "sub": str(subject)}
+    encoded_jwt = jwt.encode(
+        to_encode, settings.ACCESS_TOKEN_SECRET, algorithm=settings.ALGORITHM
+    )
+    return encoded_jwt
+
+
+def create_refresh_token(subject: str, expires_delta: timedelta | None = None) -> str:
+    if expires_delta:
+        expire = datetime.now(UTC) + expires_delta
+    else:
+        expire = datetime.now(UTC) + timedelta(
+            days=int(settings.REFRESH_TOKEN_EXPIRE_DAYS)
         )
+    to_encode = {"exp": expire, "sub": str(subject)}
+    encoded_jwt = jwt.encode(
+        to_encode, settings.REFRESH_TOKEN_SECRET, algorithm=settings.ALGORITHM
+    )
+    return encoded_jwt
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
@@ -42,7 +58,11 @@ def get_current_user(token: str = Depends(oauth2_scheme)):
     except (JWTError, ValidationError):
         raise HTTPException(
             status_code=status.HTTP_403_FORBIDDEN,
-            detail="Could not validate credentials",
+            detail="Could not validate credentials!",
         )
 
     return token_data.sub
+
+
+def generate_OTP():
+    return f"{random.randint(0, 9)}-{random.randint(0, 9)}-{random.randint(0, 9)}-{random.randint(0, 9)}-{random.randint(0, 9)}"
