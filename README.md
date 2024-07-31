@@ -11,6 +11,8 @@ Backend API for the Eather platform
 
 ## TODO
 - Properly implement the auth middleware
+- Implement timezone aware datetime (make it consistent accross the entire app)
+
 ## How to use
 
 ### Create a virtual environment using venv
