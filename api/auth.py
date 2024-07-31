@@ -55,21 +55,21 @@ async def sign_in(res: Response, user: UserIn, db: Session = Depends(get_db)):
 
 
 @router.post("/refresh")
-async def refresh(req: Request, res: Response, db: Session = Depends(get_db)):
+async def refresh_access_token(
+    req: Request, res: Response, db: Session = Depends(get_db)
+):
     refresh_token = req.cookies.get("refresh").split(" ")[-1]
     decoded = decode_token(refresh_token, settings.REFRESH_TOKEN_SECRET)
 
-    if datetime.utcfromtimestamp(decoded.get('exp')) < datetime.now():
+    if datetime.utcfromtimestamp(decoded.get("exp")) < datetime.now():
         raise HTTPException(403, detail="Auth Session Expired!")
-    
-    db_user = db.query(User).filter(User.email == decoded.get('sub')).first()
+
+    db_user = db.query(User).filter(User.email == decoded.get("sub")).first()
 
     if not db_user:
         raise HTTPException(status_code=403, detail="User not found!")
 
-    access_token = create_access_token(decoded.get('sub'))
-    res.headers.append("Authorization", f'Bearer {access_token  }')
+    access_token = create_access_token(decoded.get("sub"))
+    res.headers.append("Authorization", f"Bearer {access_token  }")
 
     return {"success": "Access token refreshed"}
-
-

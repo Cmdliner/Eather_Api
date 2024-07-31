@@ -1,4 +1,4 @@
-# [Eather](https://eather.onrender.com)
+# [Eather](https://eather-iota.vercel.app)
 
 Backend API for the Eather platform 
 
@@ -6,9 +6,11 @@ Backend API for the Eather platform
 - Python
 - FastAPI
 - Passlib
-- Maria DB / MySql
+- MySql (Maria DB)
 - Docker
 
+## TODO
+- Properly implement the auth middleware
 ## How to use
 
 ### Create a virtual environment using venv
@@ -56,12 +58,12 @@ fastapi dev app.py
 │   ├── db.py
 │   ├── __init__.py
 │   └── settings.py
+├── create_tables.py
 ├── Dockerfile
+├── middlewares
+│   └── auth.py
 ├── models
-│   ├── appointment.py
 │   ├── __init__.py
-│   ├── payment.py
-│   ├── test.py
 │   └── user.py
 ├── README.md
 ├── requirements.txt
@@ -72,5 +74,5 @@ fastapi dev app.py
     ├── auth_helpers.py
     └── __init__.py
 
-6 directories, 18 files
+7 directories, 17 files
 ```

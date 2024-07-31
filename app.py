@@ -2,8 +2,9 @@ import os
 from api import auth
 from config.settings import settings
 from dotenv import load_dotenv
-from fastapi import FastAPI
+from fastapi import FastAPI, Depends
 from fastapi.middleware.cors import CORSMiddleware
+from middlewares.auth import require_auth
 
 load_dotenv()
 
@@ -26,5 +27,9 @@ app.add_middleware(
 def check_server_status():
     return {"mssg": "Server is up and running"}
 
+
+@app.get('/protected')
+def test_auth_middleware(_: None = Depends(require_auth)):
+    return {"success": "Authenticated"}
 
 app.include_router(auth.router, prefix="/auth", tags=["auth"])

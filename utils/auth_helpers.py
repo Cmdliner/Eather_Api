@@ -49,7 +49,7 @@ def decode_token(token: str, token_secret: str) -> str:
             raise HTTPException(status_code=403, detail="Invalid Auth Token!")
         return payload
     except JWTError:
-        raise HTTPException(status_code=401, detail="Invalid Auth Token")
+        raise HTTPException(status_code=403, detail="Invalid Auth Token!")
 
 
 def verify_password(plain_password: str, hashed_password: str) -> bool:
