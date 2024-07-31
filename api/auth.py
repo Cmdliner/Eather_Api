@@ -1,5 +1,7 @@
+from datetime import datetime, UTC
 from config.db import get_db
-from fastapi import APIRouter, Depends, HTTPException, Response, status
+from config.settings import settings
+from fastapi import APIRouter, Depends, HTTPException, Request, Response, status
 from models.user import User
 from schemas.user import UserCreate as UserIn
 from sqlalchemy.orm import Session
@@ -8,9 +10,11 @@ from utils.auth_helpers import (
     verify_password,
     create_access_token,
     create_refresh_token,
+    decode_token,
 )
 
 router = APIRouter()
+
 
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 async def signup(user: UserIn, db: Session = Depends(get_db)):
@@ -37,7 +41,6 @@ async def sign_in(res: Response, user: UserIn, db: Session = Depends(get_db)):
     if not passwd_match:
         raise HTTPException(403, detail="Invalid username or password")
 
-    #! TODO => generate access and refresh tokens and set them in headers and cookies respectively
     access_token = create_access_token(user.email)
     refresh_token = create_refresh_token(user.email)
     res.headers.append("Authorization", f"Bearer {access_token}")
@@ -49,3 +52,24 @@ async def sign_in(res: Response, user: UserIn, db: Session = Depends(get_db)):
         samesite="lax",
     )
     return {"success": "User logged in succesfully"}
+
+
+@router.post("/refresh")
+async def refresh(req: Request, res: Response, db: Session = Depends(get_db)):
+    refresh_token = req.cookies.get("refresh").split(" ")[-1]
+    decoded = decode_token(refresh_token, settings.REFRESH_TOKEN_SECRET)
+
+    if datetime.utcfromtimestamp(decoded.get('exp')) < datetime.now():
+        raise HTTPException(403, detail="Auth Session Expired!")
+    
+    db_user = db.query(User).filter(User.email == decoded.get('sub')).first()
+
+    if not db_user:
+        raise HTTPException(status_code=403, detail="User not found!")
+
+    access_token = create_access_token(decoded.get('sub'))
+    res.headers.append("Authorization", f'Bearer {access_token  }')
+
+    return {"success": "Access token refreshed"}
+
+

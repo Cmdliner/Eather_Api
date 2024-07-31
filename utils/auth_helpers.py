@@ -41,6 +41,17 @@ def create_refresh_token(subject: str, expires_delta: timedelta | None = None) -
     return encoded_jwt
 
 
+def decode_token(token: str, token_secret: str) -> str:
+    try:
+        payload = jwt.decode(token, token_secret, algorithms=[settings.ALGORITHM])
+        email = TokenPayload(**payload).sub
+        if email is None:
+            raise HTTPException(status_code=403, detail="Invalid Auth Token!")
+        return payload
+    except JWTError:
+        raise HTTPException(status_code=401, detail="Invalid Auth Token")
+
+
 def verify_password(plain_password: str, hashed_password: str) -> bool:
     return pwd_context.verify(plain_password, hashed_password)
 
