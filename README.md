@@ -1,8 +1,9 @@
 # [Eather](https://eather-iota.vercel.app)
 
-Backend API for the Eather platform 
+Backend API for the Eather platform
 
 ## Technologies used
+
 - Python
 - FastAPI
 - Passlib
@@ -10,37 +11,45 @@ Backend API for the Eather platform
 - Docker
 
 ## BUGS
-- Price as Decimal is truncated in database
-- No error handling (errors on trying to create existing unique item)
 
+- Precision error with Price as float (switch to integers and start from smallest unit- Kobo)
+- Try doing Price Locale Conversion
 ## TODO
+
 - Properly implement the auth middleware
 - Implement timezone aware datetime (make it consistent accross the entire app)
 - Implement test-groups :- E.g. L.F.T, Lipid Profile && Stuff
+
 ## How to use
 
 ### Create a virtual environment using venv
+
 ```sh
 python -m venv venv
 ```
 
 ### Activate the virtual environment
+
 For UNIX and Unix-Like systems run:
+
 ```sh
 source venv/bin/activate
 ```
 
 For windows run:
+
 ```sh
 venv\Scripts\activate
 ```
 
 ### Install the dependencies with pip
+
 ```sh
 pip install -r requirements.txt
 ```
 
 ### Create a .env file at the project root and initalize the following constants
+
 ```sh
 PROJECT_NAME=Eather
 DATABASE_URI=mysql+pymysql://<db_user>:<user_password>/<db_name>
@@ -50,10 +59,12 @@ ACCESS_TOKEN_EXPIRE_MINUTES=
 ```
 
 ### Database Operations
+
 - Ensure that database in the env file is already created. If not create it now.
 - Run database migrations
 
 #### Database Migrations
+
 ```py
 #!/bin/python3
 from config.db import engine
@@ -72,6 +83,7 @@ if __name__ == "__main__":
     print("Database tables created successfully")
 
 ```
+
 Uncomment all and run the [`create_tables`](#database-migrations) script as shown above in the root of the project directory.
 
 ```sh
@@ -81,12 +93,15 @@ python create_tables.py
 ### Confirm project structure
 
 At the end of this (with the exception of the .env file and env/ directories) your project should look like this: [`project-structure`](#project-strucure)
+
 ### Run the Development Server
+
 ```sh
 fastapi dev app.py
 ```
 
 ## PROJECT STRUCURE
+
 ```sh
 .
 ├── api
