@@ -1,5 +1,5 @@
 import os
-from api import auth
+from api import auth, test
 from config.settings import settings
 from dotenv import load_dotenv
 from fastapi import FastAPI, Depends
@@ -33,3 +33,4 @@ def test_auth_middleware(_: None = Depends(require_auth)):
     return {"success": "Authenticated"}
 
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
+app.include_router(test.router, prefix="/test", tags=["test"])

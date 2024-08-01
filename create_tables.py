@@ -1,9 +1,12 @@
 from config.db import engine
-from models.user import Base
+# from models.user import Base as UserBase
+from models.test import Base as TestBase
 
 
 def create_tables():
-    Base.metadata.create_all(bind=engine)
+    # UserBase.metadata.create_all(bind=engine)
+    TestBase.metadata.create_all(bind=engine)
+
 
 
 if __name__ == "__main__":
