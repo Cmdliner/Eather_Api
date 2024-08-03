@@ -1,11 +1,11 @@
-from config.db import engine
+# from config.db import engine
 # from models.user import Base as UserBase
-from models.test import Base as TestBase
+# from models.test import Base as TestBase
 
 
 def create_tables():
     # UserBase.metadata.create_all(bind=engine)
-    TestBase.metadata.create_all(bind=engine)
+    # TestBase.metadata.create_all(bind=engine)
 
 
 
