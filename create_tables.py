@@ -1,12 +1,13 @@
-# from config.db import engine
-# from models.user import Base as UserBase
-# from models.test import Base as TestBase
+from config.db import engine
+from models.appointment import Base as AppointmentBase
+from models.user import Base as UserBase
+from models.test import Base as TestBase
 
 
 def create_tables():
-    # UserBase.metadata.create_all(bind=engine)
-    # TestBase.metadata.create_all(bind=engine)
-
+    UserBase.metadata.create_all(bind=engine)
+    TestBase.metadata.create_all(bind=engine)
+    AppointmentBase.metadata.create_all(bind=engine)
 
 
 if __name__ == "__main__":

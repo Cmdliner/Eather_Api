@@ -67,15 +67,17 @@ ACCESS_TOKEN_EXPIRE_MINUTES=
 
 ```py
 #!/bin/python3
+
 from config.db import engine
-# from models.user import Base as UserBase
-#from models.test import Base as TestBase
+from models.appointment import Base as AppointmentBase
+from models.user import Base as UserBase
+from models.test import Base as TestBase
 
 
 def create_tables():
-    # UserBase.metadata.create_all(bind=engine)
-    #TestBase.metadata.create_all(bind=engine)
-
+    UserBase.metadata.create_all(bind=engine)
+    TestBase.metadata.create_all(bind=engine)
+    AppointmentBase.metadata.create_all(bind=engine)
 
 
 if __name__ == "__main__":
@@ -118,6 +120,8 @@ fastapi dev app.py
 ├── middlewares
 │   └── auth.py
 ├── models
+│   ├── appointment.py
+│   ├── base.py
 │   ├── __init__.py
 │   ├── test.py
 │   └── user.py
@@ -130,4 +134,5 @@ fastapi dev app.py
 └── utils
     ├── auth_helpers.py
     └── __init__.py
+
 ```
