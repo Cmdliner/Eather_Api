@@ -1,6 +1,6 @@
 import uuid
 from .base import Base
-from sqlalchemy import Column, ForeignKey, String, TEXT, TIMESTAMP
+from sqlalchemy import Column, ForeignKey, String, TEXT, TIMESTAMP, Float
 from sqlalchemy.orm import relationship
 
 
@@ -12,5 +12,7 @@ class Appointment(Base):
     patient_complaints = Column(TEXT, nullable=False)
     diagnosis = Column(TEXT, nullable=True)
     date = Column(TIMESTAMP(timezone=True))
+    tests_price = Column(Float, nullable=False)
 
     user = relationship("User", back_populates="appointments")
+    tests = relationship("Test", secondary="appointment_tests", back_populates="appointment")

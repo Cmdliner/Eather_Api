@@ -11,3 +11,4 @@ class Test(Base):
     name = Column(String(50), index=True, unique=True)
     description = Column(String(255))
     price = Column(Float(4))
+    appointments = relationship('Appointment', secondary='appointment_tests', back_populates='tests')
