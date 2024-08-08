@@ -1,5 +1,5 @@
 import os
-from api import auth, test
+from api import auth, test, appointment
 from config.settings import settings
 from dotenv import load_dotenv
 from fastapi import FastAPI, Depends
@@ -28,9 +28,11 @@ def check_server_status():
     return {"mssg": "Server is up and running"}
 
 
-@app.get('/protected')
+@app.get("/protected")
 def test_auth_middleware(_: None = Depends(require_auth)):
     return {"success": "Authenticated"}
 
+
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(test.router, prefix="/test", tags=["test"])
+app.include_router(appointment.router, prefix="/appointment", tags=["appointment"])

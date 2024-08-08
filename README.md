@@ -13,9 +13,11 @@ Backend API for the Eather platform
 ## BUGS
 
 - Precision error with Price as float (switch to integers and start from smallest unit- Kobo)
-- Try doing Price Locale Conversion
+- Relationship between user and appointments fail becos, they need a default user.
+
 ## TODO
 
+- Try doing Price Locale Conversion
 - Properly implement the auth middleware
 - Implement timezone aware datetime (make it consistent accross the entire app)
 - Implement test-groups :- E.g. L.F.T, Lipid Profile && Stuff
