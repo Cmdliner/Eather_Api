@@ -8,7 +8,6 @@ class Test(Base):
     __tablename__ = "tests"
 
     id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    name = Column(String(50), index=True, unique=True)
-    description = Column(String(255))
-    price = Column(Float(4))
+    name = Column(String(50), index=True, unique=True, nullable=False)
+    price = Column(Float(8), nullable=False)
     appointments = relationship('Appointment', secondary='appointment_tests', back_populates='tests')

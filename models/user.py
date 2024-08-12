@@ -1,16 +1,23 @@
 import uuid
 from .base import Base
 from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship
-from utils.user_roles import UserRoles
+from sqlalchemy.orm import relationship, Mapped, mapped_column
+from typing import List
+from .appointment import Appointment
 
 
 class User(Base):
     __tablename__ = "users"
 
-    id = Column(String(36), primary_key=True, default=lambda: str(uuid.uuid4()))
-    role = Column(String(20), default=UserRoles.user)
-    email = Column(String(255), unique=True, index=True, nullable=False)
-    hashed_password = Column(String(255), nullable=False)
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
+    )
+    email: Mapped[str] = mapped_column(
+        String(100), index=True, unique=True, nullable=False
+    )
+    hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
 
-    appointments = relationship("Appointment", back_populates="user")
+    appointments: Mapped[List["Appointment"]] = relationship(
+        "Appointment", back_populates="user", cascade="all, delete-orphan"
+    )
+    

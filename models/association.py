@@ -1,5 +1,5 @@
-from sqlalchemy import Table, Column, String, ForeignKey
 from .base import Base
+from sqlalchemy import Table, Column, String, ForeignKey
 
 appointment_tests = Table(
     "appointment_tests",

@@ -1,7 +1,7 @@
 from config.db import get_db
 from config.settings import settings
 from fastapi import Depends, HTTPException, Request
-from models.user import User
+from models.user  import User
 from sqlalchemy.orm import Session
 from utils.auth_helpers import decode_token
 

@@ -24,11 +24,13 @@ async def signup(user: UserIn, db: Session = Depends(get_db)):
         if db_user:
             raise HTTPException(422, detail="Email taken!")
         new_user = User(email=user.email, hashed_password=hash_password(user.password))
+        print(new_user)
         db.add(new_user)
         db.commit()
         db.refresh(new_user)
         return {"success": "User created successfully", "user": new_user.email}
-    except Exception:
+    except Exception as err:
+        print(f'{err}')
         raise HTTPException(status_code=500, detail="Error creating user")
 
 
