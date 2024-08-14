@@ -11,7 +11,7 @@ class UserCreate(BaseUser):
 
 class DbUser(BaseUser):
     id: str
-    hashed_password: str
+    password: str
 
 
 class UserResponse(BaseUser):

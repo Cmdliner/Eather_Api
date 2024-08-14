@@ -1,7 +1,7 @@
 import uuid
-from .base import Base
-from sqlalchemy import Column, String
-from sqlalchemy.orm import relationship, Mapped, mapped_column
+from models.base import Base
+from sqlalchemy import BINARY, String
+from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import List
 from .appointment import Appointment
 
@@ -9,15 +9,13 @@ from .appointment import Appointment
 class User(Base):
     __tablename__ = "users"
 
-    id: Mapped[str] = mapped_column(
-        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
+    id: Mapped[bytes] = mapped_column(
+        BINARY(16), primary_key=True, default=lambda: uuid.uuid4().bytes
     )
-    email: Mapped[str] = mapped_column(
-        String(100), index=True, unique=True, nullable=False
-    )
-    hashed_password: Mapped[str] = mapped_column(String(255), nullable=False)
+    email: Mapped[str] = mapped_column(String(50), index=True, unique=True)
+    password: Mapped[str] = mapped_column(String(128))
 
-    appointments: Mapped[List["Appointment"]] = relationship(
-        "Appointment", back_populates="user", cascade="all, delete-orphan"
-    )
-    
+    appointments = relationship("Appointment", back_populates="user")
+
+    def __repr__(self):
+        return f"<User(username={self.email})>"

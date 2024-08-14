@@ -23,7 +23,7 @@ async def signup(user: UserIn, db: Session = Depends(get_db)):
 
         if db_user:
             raise HTTPException(422, detail="Email taken!")
-        new_user = User(email=user.email, hashed_password=hash_password(user.password))
+        new_user = User(email=user.email, password=hash_password(user.password))
         print(new_user)
         db.add(new_user)
         db.commit()
@@ -42,7 +42,7 @@ async def sign_in(res: Response, user: UserIn, db: Session = Depends(get_db)):
         if not user_in_db:
             raise HTTPException(403, detail="Invalid username or password")
 
-        passwd_match = verify_password(user.password, user_in_db.hashed_password)
+        passwd_match = verify_password(user.password, user_in_db.password)
 
         if not passwd_match:
             raise HTTPException(403, detail="Invalid username or password")
