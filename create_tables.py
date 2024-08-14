@@ -7,5 +7,6 @@ def init_db():
 
 
 if __name__ == "__main__":
-    print("Working...")
+    print("Creating tables...")
     init_db()
+    print("DONE :)")

@@ -1,14 +1,14 @@
 import uuid
 from models.base import Base
-from sqlalchemy import BINARY, Integer, String, TEXT
+from sqlalchemy import Integer, String, TEXT
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 
 class Test(Base):
     __tablename__ = "tests"
 
-    id: Mapped[bytes] = mapped_column(
-        BINARY(16), primary_key=True, default=lambda: uuid.uuid4().bytes
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
     )
     name: Mapped[str] = mapped_column(String(100), index=True, unique=True)
     description: Mapped[str] = mapped_column(TEXT, nullable=True)

@@ -1,16 +1,15 @@
 import uuid
 from models.base import Base
-from sqlalchemy import BINARY, String
+from sqlalchemy import String, String
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 from typing import List
-from .appointment import Appointment
 
 
 class User(Base):
     __tablename__ = "users"
 
-    id: Mapped[bytes] = mapped_column(
-        BINARY(16), primary_key=True, default=lambda: uuid.uuid4().bytes
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
     )
     email: Mapped[str] = mapped_column(String(50), index=True, unique=True)
     password: Mapped[str] = mapped_column(String(128))

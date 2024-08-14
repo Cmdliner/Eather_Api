@@ -1,16 +1,16 @@
 import uuid
 from datetime import datetime, UTC
 from models.base import Base
-from sqlalchemy import BINARY, ForeignKey, Float, TEXT
+from sqlalchemy import String, ForeignKey, Float, TEXT
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 class Appointment(Base):
     __tablename__ = "appointments"
 
-    id: Mapped[bytes] = mapped_column(
-        BINARY(16), primary_key=True, default=lambda: uuid.uuid4().bytes
+    id: Mapped[str] = mapped_column(
+        String(36), primary_key=True, default=lambda: str(uuid.uuid4())
     )
-    user_id: Mapped[bytes] = mapped_column(ForeignKey("users.id"))
+    user_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
     duration: Mapped[datetime] = mapped_column(default=lambda: datetime.now(UTC))
     patient_complaints: Mapped[str] = mapped_column(TEXT)
     price_total: Mapped[float] = mapped_column(Float(36))
