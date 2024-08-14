@@ -15,7 +15,6 @@ from utils.auth_helpers import (
 
 router = APIRouter()
 
-
 @router.post("/register", status_code=status.HTTP_201_CREATED)
 async def signup(user: UserIn, db: Session = Depends(get_db)):
     try:
@@ -32,7 +31,6 @@ async def signup(user: UserIn, db: Session = Depends(get_db)):
     except Exception as err:
         print(f'{err}')
         raise HTTPException(status_code=500, detail="Error creating user")
-
 
 @router.post("/login")
 async def sign_in(res: Response, user: UserIn, db: Session = Depends(get_db)):
@@ -63,7 +61,6 @@ async def sign_in(res: Response, user: UserIn, db: Session = Depends(get_db)):
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Error login in user",
         )
-
 
 @router.post("/refresh")
 async def refresh_access_token(

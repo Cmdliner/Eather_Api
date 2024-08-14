@@ -1,15 +1,14 @@
 from config.db import get_db
 from decimal import Decimal
 from fastapi import APIRouter, Depends, Path, Body, HTTPException, status
-
-# from middlewares.auth import require_auth
+from middlewares.auth import require_auth
 from models.test import Test
 from schemas.test import Test as TestSchema, TestUpdate
 from sqlalchemy.exc import IntegrityError, NoResultFound
 from sqlalchemy.orm import Session
 
 
-router = APIRouter()
+router = APIRouter(dependencies=[Depends(require_auth)])
 
 
 @router.get("/all", status_code=200)
