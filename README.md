@@ -12,15 +12,10 @@ Backend API for the Eather platform
 
 ## BUGS
 
-- Precision error with Price as float (switch to integers and start from smallest unit- Kobo)
-- Relationship between user and appointments fail becos, they need a default user.
 
 ## TODO
 
 - Try doing Price Locale Conversion
-- Properly implement the auth middleware
-- Implement timezone aware datetime (make it consistent accross the entire app)
-- Implement test-groups :- E.g. L.F.T, Lipid Profile && Stuff
 
 ## How to use
 
@@ -50,14 +45,9 @@ venv\Scripts\activate
 pip install -r requirements.txt
 ```
 
-### Create a .env file at the project root and initalize the following constants
-
+### Create a .env file at the project root using template by running:
 ```sh
-PROJECT_NAME=Eather
-DATABASE_URI=mysql+pymysql://<db_user>:<user_password>@<user_host>/<db_name>
-ACCESS_TOKEN_SECRET=<your_access_secret>
-REFRESH_TOKEN_SECRET=<your_refresh_secret>
-ACCESS_TOKEN_EXPIRE_MINUTES=
+chmod u+x scripts/create_env.sh  && ./scripts/create_env.sh
 ```
 
 ### Database Operations
@@ -69,22 +59,18 @@ ACCESS_TOKEN_EXPIRE_MINUTES=
 
 ```py
 #!/bin/python3
-
+from models.base import Base
 from config.db import engine
-from models.appointment import Base as AppointmentBase
-from models.user import Base as UserBase
-from models.test import Base as TestBase
 
 
-def create_tables():
-    UserBase.metadata.create_all(bind=engine)
-    TestBase.metadata.create_all(bind=engine)
-    AppointmentBase.metadata.create_all(bind=engine)
+def init_db():
+    Base.metadata.create_all(bind=engine)
 
 
 if __name__ == "__main__":
-    create_tables()
-    print("Database tables created successfully")
+    print("Creating tables...")
+    init_db()
+    print("DONE :)")
 
 ```
 
