@@ -37,7 +37,8 @@ def create_new_lab_test(test: TestSchema, db: Session = Depends(get_db)):
         raise HTTPException(
             status_code=422, detail="Test with that name already exists!"
         )
-    except Exception:
+    except Exception as err:
+        print(err)
         raise HTTPException(status_code=500, detail="Error creating test :(")
 
     return test
