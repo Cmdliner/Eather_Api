@@ -1,7 +1,7 @@
 import uuid
 from datetime import datetime, UTC
 from models.base import Base
-from sqlalchemy import String, ForeignKey, Float, TEXT
+from sqlalchemy import String, ForeignKey, Integer, TEXT
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
 
@@ -14,7 +14,7 @@ class Appointment(Base):
     user_id: Mapped[str] = mapped_column(ForeignKey("users.id"))
     duration: Mapped[datetime] = mapped_column(default=lambda: datetime.now(UTC))
     patient_complaints: Mapped[str] = mapped_column(TEXT)
-    price_total: Mapped[float] = mapped_column(Float(36))
+    price_total: Mapped[int] = mapped_column(Integer)
 
     user = relationship("User", back_populates="appointments")
     tests = relationship(

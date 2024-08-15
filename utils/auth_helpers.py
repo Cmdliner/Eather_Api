@@ -4,12 +4,12 @@ from datetime import datetime, UTC, timedelta
 from passlib.context import CryptContext
 from pydantic import ValidationError
 from fastapi import Depends, HTTPException, status
-from fastapi.security import OAuth2PasswordBearer
+# from fastapi.security import OAuth2PasswordBearer
 from jose import jwt, JWTError
 from schemas.user import TokenPayload
 
 pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
+# oauth2_scheme = OAuth2PasswordBearer(tokenUrl="auth/login")
 
 
 def create_access_token(subject: str, expires_delta: timedelta | None = None) -> str:
@@ -60,7 +60,7 @@ def hash_password(plain_password: str) -> str:
     return pwd_context.hash(plain_password)
 
 
-def get_current_user(token: str = Depends(oauth2_scheme)):
+def get_current_user(token: str):
     try:
         payload = jwt.decode(
             token, settings.ACCESS_TOKEN_SECRET, algorithms=[settings.ALGORITHM]

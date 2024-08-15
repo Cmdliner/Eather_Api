@@ -1,5 +1,4 @@
 from config.db import get_db
-from decimal import Decimal
 from fastapi import APIRouter, Depends, Path, Body, HTTPException, status
 from middlewares.auth import require_auth
 from models.test import Test
