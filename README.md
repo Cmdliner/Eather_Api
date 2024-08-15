@@ -12,9 +12,10 @@ Backend API for the Eather platform
 
 ## BUGS
 
-
 ## TODO
 
+- Get current user maybe there is a way to access the req object
+- Results are a one-to-one relationship to Appointments
 - Try doing Price Locale Conversion
 
 ## How to use
@@ -46,6 +47,7 @@ pip install -r requirements.txt
 ```
 
 ### Create a .env file at the project root using template by running:
+
 ```sh
 chmod u+x scripts/create_env.sh  && ./scripts/create_env.sh
 ```

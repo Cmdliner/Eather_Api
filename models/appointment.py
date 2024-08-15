@@ -4,6 +4,7 @@ from models.base import Base
 from sqlalchemy import String, ForeignKey, Float, TEXT
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 
+
 class Appointment(Base):
     __tablename__ = "appointments"
 

@@ -1,3 +1,4 @@
+
 from config.db import get_db
 from config.settings import settings
 from fastapi import Depends, HTTPException, Request

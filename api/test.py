@@ -18,7 +18,8 @@ def get_all_tests(db: Session = Depends(get_db)):
         return all_tests
     except NoResultFound:
         raise HTTPException(status_code=404, detail="No tests found!")
-    except Exception:
+    except Exception as err:
+        print(err)
         raise HTTPException(status_code=500, detail="Error getting tests :(")
 
 
@@ -26,7 +27,7 @@ def get_all_tests(db: Session = Depends(get_db)):
 def create_new_lab_test(test: TestSchema, db: Session = Depends(get_db)):
     try:
         test_in_db = Test(
-            name=test.name, price=Decimal(test.price), description=test.description
+            name=test.name, price=test.price, description=test.description
         )
 
         db.add(test_in_db)

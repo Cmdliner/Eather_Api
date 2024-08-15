@@ -1,16 +1,10 @@
-import os
-from models.base import Base
+from .settings import settings
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
-from dotenv import load_dotenv
 
-load_dotenv()
-
-DATABASE_URI = os.getenv('DATABASE_URI') 
+DATABASE_URI = settings.DATABASE_URI
 engine = create_engine(DATABASE_URI)
 SessionLocal = sessionmaker(autoflush=False, autocommit=False, bind=engine)
-
-# Base.metadata.create_all(bind=engine)
 
 
 def get_db():
@@ -19,5 +13,3 @@ def get_db():
         yield db
     finally:
         db.close()
-
-
