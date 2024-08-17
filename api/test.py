@@ -10,6 +10,12 @@ from sqlalchemy.orm import Session
 router = APIRouter(dependencies=[Depends(require_auth)])
 
 
+@router.get("/{test_id}")
+def get_single_test(test_id: str = Path(), db: Session = Depends(get_db)):
+    test = db.query(Test).filter(Test.id == test_id).first()
+    return test.name
+
+
 @router.get("/all", status_code=200)
 def get_all_tests(db: Session = Depends(get_db)):
     try:
