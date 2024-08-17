@@ -14,9 +14,10 @@ Backend API for the Eather platform
 
 ## TODO
 
-- Get current user maybe there is a way to access the req object
+- Appointment works (created in rogue dev mode) refactor and handle errors properly
 - Results are a one-to-one relationship to Appointments
 - Try doing Price Locale Conversion
+- Implement error handling properly
 
 ## How to use
 
