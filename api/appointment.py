@@ -16,7 +16,6 @@ router = APIRouter()
 def new_appointment(
     appointment: AppointmentSchema, req: Request, db: Session = Depends(get_db)
 ):
-    # appointment = appointment.model_dump()
     try:
         user = db.query(User).filter(User.id == appointment.user_id).first()
 
@@ -44,3 +43,8 @@ def new_appointment(
     except Exception as err:
         print(err)
         raise HTTPException(detail="Internal server error", status_code=500)
+    
+
+@router.get('/{id}/details')
+def get_appointment_details():
+    pass
