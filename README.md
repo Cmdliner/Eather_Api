@@ -16,7 +16,6 @@ Backend API for the Eather platform
 
 - Appointment works (created in rogue dev mode) refactor and handle errors properly
 - Results are a one-to-one relationship to Appointments
-- Try doing Price Locale Conversion
 - Implement error handling properly
 
 ## How to use
@@ -95,11 +94,12 @@ fastapi dev app.py
 
 ## PROJECT STRUCURE
 
-```sh
-.
+```sh.
 ├── api
+│   ├── appointment.py
 │   ├── auth.py
 │   ├── __init__.py
+│   ├── result.py
 │   └── test.py
 ├── app.py
 ├── config
@@ -112,18 +112,25 @@ fastapi dev app.py
 │   └── auth.py
 ├── models
 │   ├── appointment.py
+│   ├── association.py
 │   ├── base.py
 │   ├── __init__.py
+│   ├── result.py
 │   ├── test.py
 │   └── user.py
 ├── README.md
 ├── requirements.txt
 ├── schemas
+│   ├── appointment.py
 │   ├── __init__.py
 │   ├── test.py
 │   └── user.py
+├── scripts
+│   └── create_env.sh
 └── utils
     ├── auth_helpers.py
-    └── __init__.py
+    ├── __init__.py
+    └── user_roles.py
 
+8 directories, 29 files
 ```

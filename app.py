@@ -17,11 +17,9 @@ app.add_middleware(
     expose_headers=["Authorization"]
 )
 
-
 @app.get("/healthz")
 def check_server_status():
     return {"mssg": "Server is up and running"}
-
 
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(test.router, prefix="/test", tags=["test"])
