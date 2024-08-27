@@ -17,7 +17,10 @@ def new_appointment(
     appointment: AppointmentSchema, req: Request, db: Session = Depends(get_db)
 ):
     try:
-        user = db.query(User).filter(User.id == appointment.user_id).first()
+        authToken = req.headers.get('Authorization').split(' ')[-1]
+        user_email = get_current_user(authToken)
+        print(user_email)
+        user = db.query(User).filter(User.email == user_email).first()
 
         if not user:
             raise HTTPException(
@@ -29,7 +32,7 @@ def new_appointment(
             patient_complaints=appointment.patient_complaints,
             price_total=appointment.price_total,
         )
-        # Get tests from the lise and added them to the new appointment
+        # Get tests from the list and added them to the new appointment
         # new_appointment.tests.append()
         #! TODO => HANDLE ERORORS HERE IF NO TESTS
         tests = db.query(Test).filter(Test.id.in_(appointment.tests)).all()

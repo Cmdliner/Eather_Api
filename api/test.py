@@ -9,15 +9,8 @@ from sqlalchemy.orm import Session
 
 router = APIRouter(dependencies=[Depends(require_auth)])
 
-
-@router.get("/{test_id}")
-def get_single_test(test_id: str = Path(), db: Session = Depends(get_db)):
-    test = db.query(Test).filter(Test.id == test_id).first()
-    return test.name
-
-
 @router.get("/all", status_code=200)
-def get_all_tests(db: Session = Depends(get_db)):
+async def get_all_tests(db: Session = Depends(get_db)):
     try:
         all_tests = db.query(Test).all()
         return all_tests
@@ -28,8 +21,19 @@ def get_all_tests(db: Session = Depends(get_db)):
         raise HTTPException(status_code=500, detail="Error getting tests :(")
 
 
+@router.get("/{test_id}")
+async def get_single_test(test_id: str = Path(), db: Session = Depends(get_db)):
+    try:
+        test = db.query(Test).filter(Test.id == test_id).first()
+        if test:
+            return test.name
+    except Exception as err:
+        print(err)
+        raise HTTPException(status_code=500, detail="Error getting test :(")
+
+
 @router.post("/create", status_code=status.HTTP_201_CREATED, response_model=TestSchema)
-def create_new_lab_test(test: TestSchema, db: Session = Depends(get_db)):
+async def create_new_lab_test(test: TestSchema, db: Session = Depends(get_db)):
     try:
         test_in_db = Test(
             name=test.name, price=test.price, description=test.description
@@ -50,7 +54,7 @@ def create_new_lab_test(test: TestSchema, db: Session = Depends(get_db)):
 
 
 @router.put("/{test_id}/update", response_model=None)
-def update_lab_test(
+async def update_lab_test(
     test_id: str = Path(), updates: TestUpdate = Body, db: Session = Depends(get_db)
 ):
     try:
@@ -73,7 +77,7 @@ def update_lab_test(
 
 
 @router.delete("/{test_id}/delete", response_model=None)
-def delete_lab_test(test_id: str = Path(), db: Session = Depends(get_db)):
+async def delete_lab_test(test_id: str = Path(), db: Session = Depends(get_db)):
     try:
         test_to_delete = db.query(Test).filter(Test.id == test_id).first()
 
