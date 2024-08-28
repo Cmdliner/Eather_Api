@@ -22,5 +22,5 @@ def check_server_status():
     return {"mssg": "Server is up and running"}
 
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
-app.include_router(test.router, prefix="/test", tags=["test"])
-app.include_router(appointment.router, prefix="/appointment", tags=["appointment"])
+app.include_router(test.router, prefix="/tests", tags=["test"])
+app.include_router(appointment.router, prefix="/appointments", tags=["appointment"])
