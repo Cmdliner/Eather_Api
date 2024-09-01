@@ -97,8 +97,8 @@ async def get_all_user_appointments(req: Request, db: Session = Depends(get_db))
         )
 
 
-@router("/{appointment_id}/results")
-def get_results(req: Request, appointment_id: str, db: Session = Depends(get_db)):
+# @router("/{appointment_id}/results")
+# def get_results(req: Request, appointment_id: str, db: Session = Depends(get_db)):
     # TODO => Get appointment from the id check if the current user is the appointment user
     # and display the results for that apointment if so, else raise exception
-    pass
+    # pass

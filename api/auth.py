@@ -92,3 +92,9 @@ async def refresh_access_token(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Internal server error",
         )
+
+
+@router.post("/logout")
+async def logout(res: Response, db: Session = Depends(get_db)):
+    res.delete_cookie("refresh")
+    return {"message": "User logged out successfully"}
