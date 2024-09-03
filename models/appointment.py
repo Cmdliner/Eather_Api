@@ -21,5 +21,6 @@ class Appointment(Base):
         "Test", secondary="appointment_tests", back_populates="appointments"
     )
 
+
     def __repr__(self):
         return f"Appointment<user_id=({self.user_id}), duration=({self.duration})>"

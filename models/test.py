@@ -16,6 +16,7 @@ class Test(Base):
     appointments = relationship(
         "Appointment", secondary="appointment_tests", back_populates="tests"
     )
+    results = relationship("Result", back_populates="test")
 
     def __repr__(self):
         return f"Test<name=({self.name}), price=({self.price})>"
