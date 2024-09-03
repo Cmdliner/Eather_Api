@@ -15,7 +15,7 @@ class Result(Base):
     
     test = relationship("Test", back_populates="results")
     appointments = relationship(
-        "Appointment", secondary="appointment_tests", back_populates="results"
+        "Appointment", secondary="appointment_results", back_populates="results"
     )
-
-    # TODO => describe relationship between test values in appointments as results for them here
+    def __repr__(self):
+        return f"result<id=({self.id}), value=({self.value})>"

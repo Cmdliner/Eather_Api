@@ -17,6 +17,7 @@ class Appointment(Base):
     price_total: Mapped[int] = mapped_column(Integer)
 
     user = relationship("User", back_populates="appointments")
+    results = relationship("Result", secondary="appointment_results", back_populates="appointments")
     tests = relationship(
         "Test", secondary="appointment_tests", back_populates="appointments"
     )
